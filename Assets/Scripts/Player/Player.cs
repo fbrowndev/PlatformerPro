@@ -13,11 +13,14 @@ public class Player : MonoBehaviour
 
     private bool _canDoubleJump;
 
+    private int _coins;
+
     //Cached values
     private float _yVelocity;
 
-    //Components
+    //Components and References
     private CharacterController _characterController;
+    private UIManager _uiManager;
 
     #endregion
 
@@ -27,6 +30,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         _characterController = GetComponent<CharacterController>();
+        _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
     }
 
     // Update is called once per frame
@@ -69,6 +73,15 @@ public class Player : MonoBehaviour
         _playerVelocity.y = _yVelocity;
         _characterController.Move(_playerVelocity * Time.deltaTime);
     }
+    #endregion
+
+    #region Public Methods
+    public void AddCoins(int value)
+    {
+        _coins += value;
+        _uiManager.UpdateCoinDisplay(_coins);
+    }
+
     #endregion
 
 }
