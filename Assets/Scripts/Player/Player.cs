@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class Player : MonoBehaviour
     private bool _canDoubleJump;
 
     private int _coins;
+    private int _health = 3;
 
     //Cached values
     private float _yVelocity;
@@ -80,6 +82,18 @@ public class Player : MonoBehaviour
     {
         _coins += value;
         _uiManager.UpdateCoinDisplay(_coins);
+    }
+
+    public void Damage()
+    {
+        _health--;
+
+        _uiManager.UpdateHealthDisplay(_health);
+
+        if(_health < 1)
+        {
+            SceneManager.LoadScene(0);
+        }
     }
 
     #endregion
